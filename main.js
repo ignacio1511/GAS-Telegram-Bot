@@ -56,19 +56,21 @@ var grupos_id = ['-1001698238661', '-1001488390333', '-1001558134910', '-1001698
 function deletekeyboard(a,b){
   var url = UrlFetchApp.fetch(telegramUrl + '/deleteMessage?chat_id='+a + '&message_id='+b)
   return UrlFetchApp.fetch(url)
-
 }
+
 // ENVIAR FOTO
 function enviar_foto(chat_id, photo, caption){
   var url = telegramUrl + '/sendPhoto?chat_id='+chat_id + '&photo='+photo + '&caption=' + caption;
   return UrlFetchApp.fetch(url);
 }
-// Enviar foto (sin caption)
+
+// ENVIAR FOTO (SIN CAPTION)
 function enviar_foto_sin_caption(chat_id, photo){
   var url = telegramUrl + '/sendPhoto?chat_id='+chat_id + '&photo='+photo;
   return UrlFetchApp.fetch(url);
 }
-// Suma de elementos
+
+// SUMA
 function suma(lista = []){
   sum = 0
   for(i=0;i<lista.length;i++){
@@ -76,11 +78,13 @@ function suma(lista = []){
   }
   return sum
 }
-// Get
+
+// GET
 function doGet(e) {
   return HtmlService.createHtmlOutput('Funcionando');
 }
-// Eliminar miembros
+
+// ELIMINAR MIEMBROS
 function deletemember(chat_id, user_id) {
   try{
       var url = telegramUrl + '/banChatMember?chat_id=' + chat_id + '&user_id=' + user_id;
@@ -89,7 +93,8 @@ function deletemember(chat_id, user_id) {
     console.log("ERROR")
   }
 }
-// Desbanear a miembros (para que se puedan volver a unir)
+
+// DESBANEAR MIEMBROS
 function unbanchatmember(chat_id,user_id){
   try{
     var url = telegramUrl + '/unbanChatMember?chat_id=' + chat_id + '&user_id=' + user_id;
@@ -97,14 +102,15 @@ function unbanchatmember(chat_id,user_id){
   }catch{
     //pass
   }
-
 }
-// Reenviar pagos al administrador
+
+// REENVIAR PAGOS A ADMIN
 function reenviar(receptor,emisor,id_me){
   var url3 = telegramUrl + '/forwardMessage?chat_id='+receptor+'&from_chat_id='+ emisor +'&message_id='+id_me;
   UrlFetchApp.fetch(url3);
 }
-// Crear links de grupos
+
+// CREAR LINK DE GRUPO Y ENVIARLO AL USUARIO INSCRITO
 function sendText_link() {
   function ultimoValor_id(){ 
     let ultimafila = spreadsheet.getLastRow();
@@ -121,10 +127,9 @@ function sendText_link() {
   function create_chat_link_only(chat_id_llegado){
     chat_id = chat_id_llegado;
     max_use=1
-    expirar=Math.round(Date.now()/1000)+100000;
+    expirar=Math.round(Date.now()/1000)+100000; //link con vencimiento
     console.log(expirar)
     var url = UrlFetchApp.fetch(telegramUrl + '/createChatInviteLink?chat_id=' + chat_id +'&member_limit='+max_use+'&expire_date='+ expirar);
-    //+'&expire_date='+ expirar
     var data = JSON.parse(url.getContentText());
     link = encodeURIComponent(data.result["invite_link"]);
     return link
@@ -133,7 +138,7 @@ function sendText_link() {
   let grupo_identificador=ultimovalorgrupo();
   console.log(grupo_identificador)
   if(grupo_identificador == '1' ){ 
-    //GRUPO VIP
+    //Grupo VIP
     let group= '-1001698238661';
     let verificador=0;
     let user=0;
@@ -149,13 +154,12 @@ function sendText_link() {
         } 
     }
     if (verificador==0){
-      //Hola 👋🏻 [Name], ha ocurrido algo inesperado 🤔 Por favor envíame 11 para contactarte con un administrador
       sendText('1676794449', 'Hola, tu ID ingresado no es el correcto. Por favor, contactate con un asesor⤵️ ');
       sendText('1676794449',id);
     }
   }
   else if(grupo_identificador == '2'){
-    //AMERICAN PICKS
+    //American Picks
     console.log(grupo_identificador)
     let group = '-1001488390333';
     for(i=0;i<values_5.length;i++){
@@ -171,7 +175,7 @@ function sendText_link() {
   }
   else if(grupo_identificador == '3'){
     let group = '-1001558134910';
-    //LIGA PERUANA
+    //Liga Peruana
     for(i=0;i<values_5.length;i++){
     if (values_5[i][1] == id){
       var answer = create_chat_link_only(group);
@@ -200,7 +204,7 @@ function sendText_link() {
   }
   else if (grupo_identificador == '7'){
     let group = '-1001567679015';
-    //COMBO STAKE10
+    //Combo Stake10
     for(i=0;i<values_5.length;i++){
     if (values_5[i][1] == id){
       var answer = create_chat_link_only(group);
@@ -242,7 +246,8 @@ function sendText_link() {
     }
   }
 }
-// Menu de opciones
+
+// MENU DE OPCIONES
 function sendMenu(chatId, text, keyBoard) {
   var data = {
     method: "post",
@@ -256,7 +261,7 @@ function sendMenu(chatId, text, keyBoard) {
   };
   UrlFetchApp.fetch('https://api.telegram.org/bot' + token + '/', data);
 }
-// Eliminar miemberos con membresía vencida de todos los grupos
+// ELIMINAR MIEMBROS VENCIDOS DE TODOS LOS GRUPOS
 function eliminar(){
   //VIP: -1001698238661
   //American: -1001488390333
@@ -279,12 +284,10 @@ function eliminar(){
     }
   }
 }
-// Eliminar miembros Stake10-I
+// ELIMINAR MIEMBROS VENCIDOS STAKE10 - I
 function eliminar_stake10_I(){
   var grupo_stake10 = SpreadsheetApp.openById(spreadsheetId).getSheetByName('stake10-I');
-  //let grupos = '-1001730809448';
   let grupos = '-1001695943834';
-  let id = '1676794449';
   var range_stake_10 = grupo_stake10.getDataRange();
   var values_stake_10 = range_stake_10.getValues();
   var eliminados = 0;
@@ -298,7 +301,8 @@ function eliminar_stake10_I(){
   }
   grupo_stake10.deleteRows(2,values_stake_10.length-1);
 }
-// Eliminar miembros Stake10-II
+
+// ELIMINAR MIEMBROS VENCIDOS STAKE10 - II
 function eliminar_stake10_II(){
   var grupo_stake10 = SpreadsheetApp.openById(spreadsheetId).getSheetByName('stake10-II');
   let grupos = '-1001539063486';
@@ -315,7 +319,8 @@ function eliminar_stake10_II(){
   }
   grupo_stake10.deleteRows(2,values_stake_10.length-1);
 }
-// Eliminar miembros Stake10-Combo
+
+// ELIMINAR MIEMBROS VENCIDOS STAKE10 - COMBO
 function eliminar_stake10_combo(){
   var grupo_stake10 = SpreadsheetApp.openById(spreadsheetId).getSheetByName('stake10-combo');
   let grupos = '-1001567679015';
@@ -333,7 +338,8 @@ function eliminar_stake10_combo(){
   }
   grupo_stake10.deleteRows(2,values_stake_10.length-1);
 }
-// Recordatorio de renovacion
+
+// RECORDATORIO RENOVACION
 function recordar(){
   let id = '1676794449';
   let id2= '394714808';
@@ -356,14 +362,16 @@ function recordar(){
   sendText(id, '🔥 ' + notificados + ' personas 🔥'+ ' han sido notificadas.');
   sendText(id2, '🔥 ' + notificados + ' personas 🔥'+ ' han sido notificadas.');
 }
-// Mandar mensaje
+
+// MANDAR MENSAJES
 function sendText(chatId, text) {
   try{
     UrlFetchApp.fetch(telegramUrl + '/sendMessage?chat_id=' + chatId+ '&text=' + text);
   }catch{
   }
 }
-// Actualizar BBDD
+
+//ACTUALIZAR BB
 function actualizacion(){
   function ultimoValor(){ 
     var ultimo_valor = spreadsheet.getRange(ultimafila,11).getValue();
@@ -395,7 +403,8 @@ function actualizacion(){
       }
     }
 }
-// Recibe mensajes
+
+// RECIBIR MENSAJES
 function doPost(e) {
   var contents = JSON.parse(e.postData.contents);
   if (contents.callback_query) {
