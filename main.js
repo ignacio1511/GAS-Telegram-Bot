@@ -2,7 +2,10 @@ var token = 'BOT_TOKEN';
 var telegramUrl = 'https://api.telegram.org/bot' + token;
 var spreadsheetId = 'ADMIN SPREADSHEET';
 var administradores = ['IDS FOR ADMIN ACCES'];
+var contacto_asesor = '@asesor'
+var grupos_id = ['IDS DE LOS GRUPOS A USAR']
 
+// VERIFICACION
 var spreadsheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName('forms_registro');
 var spreadsheet_2 = SpreadsheetApp.openById(spreadsheetId).getSheetByName('info');
 
@@ -41,16 +44,14 @@ var regreso_menu = 'Para regresar al menú, escribe MENU';
 var info_pago_text = 'Realiza tu pago a las siguentes cuentas y envíame una captura de pantalla para añadirte al grupo ⤵️ ';
 var descripcion_pago = 'Para una aprobación más rápida, por favor especifica el paquete adquirido en la descripción de la imagen y/o transferencia bancaria 👨‍💻'
 
+
 //MENU CON PROMOCION
 if(promo_peru == 'Si'){
   var menu = '<b>0. </b>  PROMO - Hoy Juega Perú 🇵🇪 \n<b>1. </b>  Aprende a apostar 💡 \n<b>2. </b>  Paquetes Premium 👑 \n<b>3. </b>  Info STAKE10 🔮 \n<b>4. </b>  Mi ID 🔒 \n<b>5. </b>  Valida tu transacción 🗂️ \n<b>6. </b>  Estado de mi membresía ✅ \n<b>7. </b>  Grupo Gratuito 🔥 \n<b>8. </b>  Renueva tu suscripción 📌 \n<b>9. </b>  Manejo de BANK 💰 \n<b>10. </b> Registro Casa de Apuestas 🏦 \n<b>11.</b>  Contáctate con un asesor 👨🏻‍🦰';
 }
 else {
   var menu =  '<b>1. </b>  Aprende a apostar 💡 \n<b>2. </b>  Paquetes Premium 👑 \n<b>3. </b>  Info STAKE10 🔮 \n<b>4. </b>  Mi ID 🔒 \n<b>5. </b>  Valida tu transacción 🗂️ \n<b>6. </b>  Estado de mi membresía ✅ \n<b>7. </b>  Grupo Gratuito 🔥 \n<b>8. </b>  Renueva tu suscripción 📌 \n<b>9. </b>  Manejo de BANK 💰 \n<b>10. </b> Registro Casa de Apuestas 🏦 \n<b>11.</b>  Contáctate con un asesor 👨🏻‍🦰';
-
 }
-var contacto_asesor = '@peruvianpicks1'
-var grupos_id = ['-1001698238661', '-1001488390333', '-1001558134910', '-1001698238661', '-1001691910961']
 
 // ELIMINAR TECLADO AL ACEPTAR EL PAGO
 function deletekeyboard(a,b){
