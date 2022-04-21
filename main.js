@@ -7,7 +7,6 @@ var spreadsheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName('forms_r
 var spreadsheet_2 = SpreadsheetApp.openById(spreadsheetId).getSheetByName('info');
 
 //// ADMIN: ABRIENDO HOJAS DE SHEETS
-//var sheetsId_admin = '1Iozi9-U1VDdgq2lz-Su-iGD-MRB6Rmlvc7GuavxBf7Y';
 var sheets_admin = SpreadsheetApp.openById(spreadsheetId).getSheetByName('admin');
 var range_admin = sheets_admin.getDataRange();
 var values_admin = range_admin.getValues();
