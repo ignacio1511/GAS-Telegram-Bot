@@ -53,13 +53,13 @@ else {
 var contacto_asesor = '@peruvianpicks1'
 var grupos_id = ['-1001698238661', '-1001488390333', '-1001558134910', '-1001698238661', '-1001691910961']
 
-// Eliminar teclado al aceptar pago
+// ELIMINAR TECLADO AL ACEPTAR EL PAGO
 function deletekeyboard(a,b){
   var url = UrlFetchApp.fetch(telegramUrl + '/deleteMessage?chat_id='+a + '&message_id='+b)
   return UrlFetchApp.fetch(url)
 
 }
-// Enviar foto
+// ENVIAR FOTO
 function enviar_foto(chat_id, photo, caption){
   var url = telegramUrl + '/sendPhoto?chat_id='+chat_id + '&photo='+photo + '&caption=' + caption;
   return UrlFetchApp.fetch(url);
@@ -136,7 +136,6 @@ function sendText_link() {
   if(grupo_identificador == '1' ){ 
     //GRUPO VIP
     let group= '-1001698238661';
-    //console.log(grupo_identificador)
     let verificador=0;
     let user=0;
     for(i=0;i<values_5.length;i++){
@@ -263,9 +262,6 @@ function eliminar(){
   //VIP: -1001698238661
   //American: -1001488390333
   let grupos = ['-1001698238661', '-1001488390333']
-  //let grupos = ['-1001730809448','-1001698238661', '-1001488390333','-1001558134910', '-1001567679015', '-1001695943834', '-1001539063486'];
-  // COMBO / STAKE10 - 1 / STAKE 10 - 2
-  let id = '1676794449';
   let range = spreadsheet.getDataRange();
   let values = range.getValues();
   for(i=0;i<values.length;i++){
@@ -275,13 +271,6 @@ function eliminar(){
         console.log(i)
         deletemember(grupos[idnt-1],values[i][10])
         unbanchatmember(grupos[idnt-1],values[i][10])
-        //sendText(values[i][10], 'Hola '+ values[i][3] + ', muchas gracias por formar parte del grupo STAKE10')
-        //sendText(values[i][10],'Si deseas seguir recibiendo los mejores pronósticos, puedes ver nuestros Paquetes Premium mandándome 2 ⤵️')
-        //Hola Jorge cevallos, has sido eliminado, ya que no realizaste tu renovación de tu membresía [PAQUETE]
-        //Si deseas seguir recibiendo los mejores pronósticos, realiza tu renovación mandándome 7 ⤵️
-        //console.log(values[i][10])
-        //https://api.telegram.org/bot5256698346:AAGPT5sudlXGlec5krsrq12VhZYOtHJSXE0/unbanChatMember?chat_id=-1001691910961&user_id=394714808
-        //https://api.telegram.org/bot5256698346:AAGPT5sudlXGlec5krsrq12VhZYOtHJSXE0/banChatMember?chat_id=-1001691910961&user_id=1091901217
       } else {
         deletemember(grupos[0],values[i][10])
         unbanchatmember(grupos[0],values[i][10])
@@ -306,18 +295,14 @@ function eliminar_stake10_I(){
     deletemember(grupos,values_stake_10[i][1]);
     unbanchatmember(grupos,values_stake_10[i][1]);
     eliminados = eliminados + 1;
-    //sendText(values_stake_10[i][1], 'Hola '+ values_stake_10[i][2] + ', muchas gracias por formar parte del grupo STAKE10');
     sendText('-1001603495278 ','Eliminado Stake10 - I'+ values_stake_10[i][3])
-    //sendText(values_stake_10[i][1],'Si deseas seguir recibiendo los mejores pronósticos, puedes ver nuestros Paquetes Premium mandándome 2 ⤵️');
   }
   grupo_stake10.deleteRows(2,values_stake_10.length-1);
 }
 // Eliminar miembros Stake10-II
 function eliminar_stake10_II(){
   var grupo_stake10 = SpreadsheetApp.openById(spreadsheetId).getSheetByName('stake10-II');
-  //let grupos = '-1001730809448';
   let grupos = '-1001539063486';
-  let id = '1676794449';
   var range_stake_10 = grupo_stake10.getDataRange();
   var values_stake_10 = range_stake_10.getValues();
   var eliminados = 0;
@@ -327,9 +312,7 @@ function eliminar_stake10_II(){
     deletemember(grupos,values_stake_10[i][1]);
     unbanchatmember(grupos,values_stake_10[i][1]);
     eliminados = eliminados + 1;
-    //sendText(values_stake_10[i][1], 'Hola '+ values_stake_10[i][2] + ', muchas gracias por formar parte del grupo STAKE10');
     sendText('-1001603495278 ','Eliminado Stake10 - II'+ values_stake_10[i][3])
-    //sendText(values_stake_10[i][1],'Si deseas seguir recibiendo los mejores pronósticos, puedes ver nuestros Paquetes Premium mandándome 2 ⤵️');
   }
   grupo_stake10.deleteRows(2,values_stake_10.length-1);
 }
@@ -347,9 +330,7 @@ function eliminar_stake10_combo(){
     deletemember(grupos,values_stake_10[i][1]);
     unbanchatmember(grupos,values_stake_10[i][1]);
     eliminados = eliminados + 1;
-    //sendText(values_stake_10[i][1], 'Hola '+ values_stake_10[i][2] + ', muchas gracias por formar parte del grupo STAKE10');
     sendText('-1001603495278 ','Eliminado Stake10 - COMBO'+ values_stake_10[i][3])
-    //sendText(values_stake_10[i][1],'Si deseas seguir recibiendo los mejores pronósticos, puedes ver nuestros Paquetes Premium mandándome 3 ⤵️');
   }
   grupo_stake10.deleteRows(2,values_stake_10.length-1);
 }
@@ -369,7 +350,6 @@ function recordar(){
           sendText(values[i][10], menu);
         }
         catch(e) {
-          //console.log(e);
         }
                   
       }
@@ -388,7 +368,6 @@ function sendText(chatId, text) {
 function actualizacion(){
   function ultimoValor(){ 
     var ultimo_valor = spreadsheet.getRange(ultimafila,11).getValue();
-  //console.log(ultimo_valor);
   return ultimo_valor
   }
   function ultimovalorgrupo(){
@@ -416,10 +395,6 @@ function actualizacion(){
         
       }
     }
-    console.log('17 ' + values[i-1][17]);
-    console.log('21 ' + values[i-1][21]);
-    console.log('6 ' + values[i-1][6]);
-    console.log('22 ' + values[i-1][22]);
 }
 // Recibe mensajes
 function doPost(e) {
@@ -540,9 +515,6 @@ function doPost(e) {
     var last_name = contents.message.chat.last_name;
     var range = spreadsheet.getDataRange();
     var values = range.getValues();
-    //var range_2 = spreadsheet_2.getDataRange();
-    //var values_2 = range_2.getValues();
-    //var range_stake10 = stake10.getDataRange();
     var confirmation_keyBoard = {
         "inline_keyboard": [
           [{
@@ -734,15 +706,6 @@ function doPost(e) {
           case '/delete_stake10_combo':
             if(id == '394714808' || id == '1676794449' || id == '808541241'){
               eliminar_stake10_combo()
-            }
-            break;
-
-          case '/miembros':
-            if(id == '394714808' || id == '1676794449' || id == '808541241'){
-              //var answer= 'Usuarios con membresía activa: ' + values_2[1][5];
-              //var answer_2 = 'Usuarios con membresia vencida: ' + values_2[1][6];
-              //sendText(id, answer);
-              //sendText(id, answer_2);
             }
             break;
 
